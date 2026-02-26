@@ -1,5 +1,7 @@
 #include "test.h"
 #include "cub3d.h"
+#include "../srcs/parsing/read_map.c"
+#include "../srcs/utils.c"
 
 void	test_open_file(void)
 {
@@ -23,29 +25,33 @@ void	test_extension(void)
 	TEST("Invalide extension .cubcub", check_extension("map.cubcub") == 1);
 	TEST("Valid extension .cub", check_extension("map.cub") == 0);
 	TEST("Invalid .cub.cub", check_extension("map.cub.cub") == 1);
+	TEST(".cub without name", check_extension(".cub") == 1);
+	TEST("Without extension", check_extension("map") == 1);
+	TEST("Path with point map.map/map.cub", check_extension("map.map/map.cub") == 0);
 	printf("--- End of testing extenstion ---\n");
 }
 
-void	test_fill_map(void)
+void	test_all_line(void)
 {
+	char	**line;
+	t_game	game;
 	int		i;
-	int		res;
-	char	*line;
-	t_game	map;
 
-	printf("\n--- Testing fill map ---\n");
-	line = get_next_line(open_file("map/map1.cub"));
-	res = fill_map(&map, "map/map1.cub");
-	TEST("fill_map return 0 on valid map", res == 0);
-	TEST("map is not NULL", map.map != NULL);
-	TEST("fisrt line not NULL", map.map[0] != NULL);
-	TEST("Null argument file", fill_map(&map, NULL) == 1);
-	TEST("NULL argument struct", fill_map(NULL, "map/map1.cub") == 1);
-	TEST("first line correct", ft_strncmp(map.map[0], line, ft_strlen(line)) == 0);
+	ft_memset(&game, 0, sizeof(t_game));
+	printf("\n--- Testing read all lines ---\n");
+	line = read_all_lines("map/map1.cub");
+	TEST("Valid Map return", line != NULL);
 	i = 0;
-	while (map.map[i])
-		free(map.map[i++]);
-	free(map.map);
-	res = fill_map(&map, "blabla.cub");
-	TEST("Invalid map", res == 1);
+	while (line[i])
+		i++;
+	TEST("Number of line", i == 22);
+	TEST("Valid first line", ft_strncmp(line[0], "NO ", 3) == 0);
+	TEST("Array is NULL-terminated", line[i] == NULL);
+	i = 0;
+	while (line[i])
+		free(line[i++]);
+	free(line);
+	line = read_all_lines("lol.com");
+	TEST("Wrong file", line == NULL);
+	printf("--- End of testing readmap ---\n");
 }
