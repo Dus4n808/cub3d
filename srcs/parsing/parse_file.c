@@ -6,7 +6,7 @@
 /*   By: dufama <dufama@student.42lausanne.ch>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/26 15:55:36 by dufama            #+#    #+#             */
-/*   Updated: 2026/02/26 17:20:29 by dufama           ###   ########.fr       */
+/*   Updated: 2026/03/01 16:12:08 by dufama           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,9 +61,9 @@ static int	parse_elements(t_game *game, char **lines)
 		else if (ft_strncmp(lines[i], "EA ", 3) == 0)
 			parse_textures(game, lines[i], &game->textures.east);
 		else if (ft_strncmp(lines[i], "F ", 2) == 0)
-			parse_color(game, lines[i], game->textures.floor);
+			parse_color(game, lines[i], game->textures.floor, &game->textures.set_floor);
 		else if (ft_strncmp(lines[i], "C ", 2) == 0)
-			parse_color(game, lines[i], game->textures.ceiling);
+			parse_color(game, lines[i], game->textures.ceiling, &game->textures.set_ceiling);
 		else if (empty_line(lines[i]))
 			;
 		else
@@ -75,17 +75,15 @@ static int	parse_elements(t_game *game, char **lines)
 
 int	parse_file(t_game *game, const char *filename)
 {
-	char	**lines;
-
 	if (check_extension(filename))
 		exit_error(game, "Wrong Extension");
-	lines = read_all_lines(filename);
-	if (!lines)
+	game->lines = read_all_lines(filename);
+	if (!game->lines)
 		exit_error(game, "Failed to read file");
-	if (parse_elements(game, lines) || parse_map(game, lines))
-	{
-		free_lines(lines);
+	if (parse_elements(game, game->lines) || parse_map(game, game->lines))
 		exit_error(game, "Invalid Map file");
-	}
+	check_all_elements(game);
+	free_lines(game->lines);
+	game->lines = NULL;
 	return (0);
 }

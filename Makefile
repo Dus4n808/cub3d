@@ -6,7 +6,7 @@
 #    By: dufama <dufama@student.42lausanne.ch>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/02/20 17:22:56 by dufama            #+#    #+#              #
-#    Updated: 2026/02/26 17:21:03 by dufama           ###   ########.fr        #
+#    Updated: 2026/03/01 15:20:49 by dufama           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,7 +39,8 @@ CFLAGS += -I$(MLX_DIR)
 SRCS_PARSING = parsing/read_file.c \
 				parsing/parse_file.c \
 				parsing/parse_elements.c \
-				parsing/parse_map.c
+				parsing/parse_map.c \
+				parsing/check_elements.c
 
 SRCS_MAIN = main.c
 

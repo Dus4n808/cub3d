@@ -27,7 +27,9 @@ typedef struct s_textures
 	char	*west;
 	char	*east;
 	int		floor[3];
+	int		set_floor;
 	int		ceiling[3];
+	int		set_ceiling;
 }	t_textures;
 
 typedef struct s_player
@@ -53,19 +55,22 @@ typedef struct s_game
 	t_textures	textures;
 	t_player	player;
 	t_map		map;
+	char		**lines;
 }	t_game;
 
 //utils
 void	exit_error(t_game *game, char *msg);
 void	free_lines(char **lines);
+void	free_element(t_game *game);
 //parsing
 int		check_extension(const char *filename);
 char	**read_all_lines(const char *filename);
 void	parse_textures(t_game *game, char *line, char **dest);
-void	parse_color(t_game *game, char *line, int *rgb);
+void	parse_color(t_game *game, char *line, int *rgb, int *flag);
 int		parse_file(t_game *game, const char *filename);
 int		parse_map(t_game *game, char **lines);
 int		is_map(const char *line);
+void	check_all_elements(t_game *game);
 
 
 #endif

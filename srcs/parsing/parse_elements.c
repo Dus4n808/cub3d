@@ -6,7 +6,7 @@
 /*   By: dufama <dufama@student.42lausanne.ch>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/26 15:57:44 by dufama            #+#    #+#             */
-/*   Updated: 2026/02/26 16:16:18 by dufama           ###   ########.fr       */
+/*   Updated: 2026/03/01 16:14:47 by dufama           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,12 @@ static void	valid_rgb(t_game *game, int value)
 		exit_error(game, "RGB invalid");
 }
 
-void	parse_color(t_game *game, char *line, int *rgb)
+void	parse_color(t_game *game, char *line, int *rgb, int *flag)
 {
 	char	**sec;
 
+	if (*flag)
+		exit_error(game, "Duplicate color");
 	line += 2;
 	while (*line == ' ')
 		line++;
@@ -54,5 +56,6 @@ void	parse_color(t_game *game, char *line, int *rgb)
 	valid_rgb(game, rgb[1]);
 	valid_rgb(game, rgb[2]);
 	free_lines(sec);
+	*flag = 1;
 }
 

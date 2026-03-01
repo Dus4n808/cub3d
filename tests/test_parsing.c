@@ -1,6 +1,6 @@
 #include "test.h"
 #include "cub3d.h"
-#include "../srcs/parsing/read_map.c"
+#include "../srcs/parsing/read_file.c"
 #include "../srcs/utils.c"
 
 void	test_open_file(void)
