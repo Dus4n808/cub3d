@@ -6,7 +6,7 @@
 /*   By: dufama <dufama@student.42lausanne.ch>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/26 14:23:48 by dufama            #+#    #+#             */
-/*   Updated: 2026/03/01 16:02:09 by dufama           ###   ########.fr       */
+/*   Updated: 2026/03/02 18:36:21 by dufama           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,4 +45,11 @@ void	free_element(t_game *game)
 		free_lines(game->map.grid);
 	if (game->lines)
 		free_lines(game->lines);
+}
+
+void	free_game(t_game *game)
+{
+	free_element(game);
+	if (game->win)
+		mlx_destroy_window(game->mlx, game->win);
 }

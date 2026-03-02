@@ -10,15 +10,16 @@
 
 # ifdef __APPLE__
 # include "../mlx-mac/mlx.h"
+# define KEY_ESC 53
 # elif defined(__LINUX__)
 # include "../mlx-linux/mlx.h"
+# define KEY_ESC 65307
 # endif
 
 # define WIN_WIDTH 1280
 # define WIN_HEIGTH 720
 # define TILE_SIZE 64
 
-# define ERR_MAP "Error Invalid Map\n"
 
 typedef struct s_textures
 {
@@ -48,6 +49,8 @@ typedef struct s_map
 	int		cols;
 }	t_map;
 
+
+
 typedef struct s_game
 {
 	void		*mlx;
@@ -62,6 +65,7 @@ typedef struct s_game
 void	exit_error(t_game *game, char *msg);
 void	free_lines(char **lines);
 void	free_element(t_game *game);
+void	free_game(t_game *game);
 //parsing
 int		check_extension(const char *filename);
 char	**read_all_lines(const char *filename);
@@ -71,6 +75,9 @@ int		parse_file(t_game *game, const char *filename);
 int		parse_map(t_game *game, char **lines);
 int		is_map(const char *line);
 void	check_all_elements(t_game *game);
+void	map_is_playable(t_game *game);
+//render
+int	init_game(t_game *game);
 
 
 #endif
