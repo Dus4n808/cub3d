@@ -6,7 +6,7 @@
 /*   By: dufama <dufama@student.42lausanne.ch>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/03 15:59:17 by dufama            #+#    #+#             */
-/*   Updated: 2026/03/03 17:23:21 by dufama           ###   ########.fr       */
+/*   Updated: 2026/03/03 17:31:43 by dufama           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ void	dda_algo(t_game *game, t_ray *ray)
 			ray->hit = 1;
 			break;
 		}
-		if (game->map.grid[ray->map_x][ray->map_y] == '1')
+		if (game->map.grid[ray->map_y][ray->map_x] == '1')
 			ray->hit = 1;
 	}
 }

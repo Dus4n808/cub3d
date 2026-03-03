@@ -32,7 +32,7 @@
 # define WIN_WIDTH 1280
 # define WIN_HEIGTH 720
 # define TILE_SIZE 64
-# define MOVE_SPEED 0.05
+# define MOVE_SPEED 0.1
 # define ROT_SPEED 0.03
 
 
