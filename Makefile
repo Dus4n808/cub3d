@@ -6,7 +6,7 @@
 #    By: dufama <dufama@student.42lausanne.ch>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/02/20 17:22:56 by dufama            #+#    #+#              #
-#    Updated: 2026/03/02 18:25:37 by dufama           ###   ########.fr        #
+#    Updated: 2026/03/03 16:41:19 by dufama           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ Y = \033[0;33m
 R = \033[0m
 
 NAME = cub3d
-CC = cc
+CC = cc -g
 CFLAGS = -Wall -Werror -Wextra -I include/
 SRCS_DIR = srcs/
 OBJ_DIR = obj/
@@ -43,7 +43,9 @@ SRCS_PARSING = parsing/read_file.c \
 				parsing/check_elements.c \
 				parsing/check_map.c
 
-SRCS_RENDER = render/game.c
+SRCS_RENDER = render/game.c \
+				render/draw.c \
+				render/raycasting.c
 
 SRCS_MAIN = main.c
 

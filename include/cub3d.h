@@ -11,7 +11,7 @@
 # ifdef __APPLE__
 # include "../mlx-mac/mlx.h"
 # define KEY_ESC 53
-# elif defined(__LINUX__)
+# else
 # include "../mlx-linux/mlx.h"
 # define KEY_ESC 65307
 # endif
@@ -39,6 +39,8 @@ typedef struct s_player
 	double	y;
 	double	dir_x;
 	double	dir_y;
+	double	fov_x;
+	double	fov_y;
 	char	dir;
 }	t_player;
 
@@ -49,6 +51,35 @@ typedef struct s_map
 	int		cols;
 }	t_map;
 
+typedef struct s_img
+{
+	void	*img;
+	char	*addr;
+	int		bpp;
+	int		line_len;
+	int		endian;
+} t_img;
+
+typedef struct s_ray
+{
+	double	camera_x;
+	double	dir_x;
+	double	dir_y;
+	double	delta_x;
+	double	delta_y;
+	double	side_x;
+	double	side_y;
+	double	perp;
+	int		map_x;
+	int		map_y;
+	int		step_x;
+	int		step_y;
+	int		hit;
+	int		side;
+	int		line_height;
+	int		draw_start;
+	int		draw_end;
+} t_ray;
 
 
 typedef struct s_game
@@ -58,6 +89,7 @@ typedef struct s_game
 	t_textures	textures;
 	t_player	player;
 	t_map		map;
+	t_img		img;
 	char		**lines;
 }	t_game;
 
@@ -77,7 +109,13 @@ int		is_map(const char *line);
 void	check_all_elements(t_game *game);
 void	map_is_playable(t_game *game);
 //render
+//game
 int	init_game(t_game *game);
-
+//draw
+void	put_pixel(t_img *img, int x, int y, int color);
+int	rgb_to_int(int r, int g, int b);
+void	floor_and_ceiling(t_game *game);
+//raycasting
+void	raycasting(t_game *game);
 
 #endif

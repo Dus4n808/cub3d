@@ -6,7 +6,7 @@
 /*   By: dufama <dufama@student.42lausanne.ch>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/02 18:19:00 by dufama            #+#    #+#             */
-/*   Updated: 2026/03/02 18:38:00 by dufama           ###   ########.fr       */
+/*   Updated: 2026/03/03 15:32:59 by dufama           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,10 @@ int	init_game(t_game *game)
 	game->win = mlx_new_window(game->mlx, WIN_WIDTH, WIN_HEIGTH, "cub3d");
 	if (!game->win)
 		exit_error(game, "Window creation failed");
+	game->img.img = mlx_new_image(game->mlx, WIN_WIDTH, WIN_HEIGTH);
+	if (!game->img.img)
+		exit_error(game, "Image creation failed");
+	game->img.addr = mlx_get_data_addr(game->img.img, &game->img.bpp, &game->img.line_len, &game->img.endian);
 	set_hooks(game);
 	return (0);
 }
