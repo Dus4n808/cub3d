@@ -6,7 +6,7 @@
 /*   By: dufama <dufama@student.42lausanne.ch>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/02 18:19:00 by dufama            #+#    #+#             */
-/*   Updated: 2026/03/03 15:32:59 by dufama           ###   ########.fr       */
+/*   Updated: 2026/03/03 17:10:55 by dufama           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,26 @@ int	close_game(t_game *game)
 	return (0);
 }
 
+void	render(t_game *game)
+{
+	floor_and_ceiling(game);
+	raycasting(game);
+	mlx_put_image_to_window(game->mlx, game->win, game->img.img, 0, 0);
+}
+
 int	key_press(int keycode, t_game *game)
 {
 	if (keycode == KEY_ESC)
 		close_game(game);
+	if (keycode == KEY_W)
+		move_forward(game);
+	if (keycode == KEY_S)
+		move_backward(game);
+	if (keycode == KEY_LEFT)
+		rotate_left(game);
+	if (keycode == KEY_RIGHT)
+		rotate_right(game);
+	render(game);
 	return (0);
 }
 void	set_hooks(t_game *game)

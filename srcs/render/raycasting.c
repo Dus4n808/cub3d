@@ -6,7 +6,7 @@
 /*   By: dufama <dufama@student.42lausanne.ch>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/03 15:59:17 by dufama            #+#    #+#             */
-/*   Updated: 2026/03/03 16:43:56 by dufama           ###   ########.fr       */
+/*   Updated: 2026/03/03 17:23:21 by dufama           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	calculs_step(t_game *game, t_ray *ray)
 	else
 	{
 		ray->step_x = 1;
-		ray->side_x = (ray->map_x + 1.0 - game->player.x);
+		ray->side_x = (ray->map_x + 1.0 - game->player.x) * ray->delta_x;
 	}
 	if (ray->dir_y < 0)
 	{
@@ -69,6 +69,11 @@ void	dda_algo(t_game *game, t_ray *ray)
 			ray->side_y += ray->delta_y;
 			ray->map_y += ray->step_y;
 			ray->side = 1;
+		}
+		if (ray->map_y < 0 || ray->map_y >= game->map.rows || ray->map_x < 0 || ray->map_x >= game->map.cols)
+		{
+			ray->hit = 1;
+			break;
 		}
 		if (game->map.grid[ray->map_x][ray->map_y] == '1')
 			ray->hit = 1;

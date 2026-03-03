@@ -6,7 +6,7 @@
 /*   By: dufama <dufama@student.42lausanne.ch>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/26 17:03:25 by dufama            #+#    #+#             */
-/*   Updated: 2026/03/02 18:07:44 by dufama           ###   ########.fr       */
+/*   Updated: 2026/03/03 17:30:07 by dufama           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,18 @@
 
 static int	get_max_len(char **lines, int rows)
 {
-	int	max;
-	int	len;
-	int	i;
+	int		max;
+	int		len;
+	int		i;
+	char	*trim;
 
 	max = 0;
 	i = 0;
 	while (i < rows)
 	{
-		len = (int)ft_strlen(lines[i]);
+		trim = ft_strtrim(lines[i], "\n");
+		len = (int)ft_strlen(trim);
+		free(trim);
 		if (len > max)
 			max = len;
 		i++;

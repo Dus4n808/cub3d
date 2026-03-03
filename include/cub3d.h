@@ -9,16 +9,31 @@
 # include "../libft/libft.h"
 
 # ifdef __APPLE__
-# include "../mlx-mac/mlx.h"
-# define KEY_ESC 53
+#  include "../mlx-mac/mlx.h"
+#  define KEY_ESC 53
+#  define KEY_W 13
+#  define KEY_A 0
+#  define KEY_S 1
+#  define KEY_D 2
+#  define KEY_LEFT 123
+#  define KEY_RIGHT 124
 # else
-# include "../mlx-linux/mlx.h"
-# define KEY_ESC 65307
+#  include "../mlx-linux/mlx.h"
+#  define KEY_ESC 65307
+#  define KEY_W 119
+#  define KEY_A 97
+#  define KEY_S 115
+#  define KEY_D 100
+#  define KEY_LEFT 65361
+#  define KEY_RIGHT 65363
 # endif
+
 
 # define WIN_WIDTH 1280
 # define WIN_HEIGTH 720
 # define TILE_SIZE 64
+# define MOVE_SPEED 0.05
+# define ROT_SPEED 0.03
 
 
 typedef struct s_textures
@@ -109,15 +124,21 @@ int		is_map(const char *line);
 void	check_all_elements(t_game *game);
 void	map_is_playable(t_game *game);
 //render
+void	render(t_game *game);
 //game
 int	init_game(t_game *game);
 //draw
 void	put_pixel(t_img *img, int x, int y, int color);
-int	rgb_to_int(int r, int g, int b);
+int		rgb_to_int(int r, int g, int b);
 void	floor_and_ceiling(t_game *game);
 //raycasting
 void	raycasting(t_game *game);
 //player
 void	init_player_pos(t_player *player);
+//move
+void	move_forward(t_game *game);
+void	move_backward(t_game *game);
+void	rotate_left(t_game *game);
+void	rotate_right(t_game *game);
 
 #endif
