@@ -117,5 +117,7 @@ int	rgb_to_int(int r, int g, int b);
 void	floor_and_ceiling(t_game *game);
 //raycasting
 void	raycasting(t_game *game);
+//player
+void	init_player_pos(t_player *player);
 
 #endif

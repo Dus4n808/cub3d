@@ -6,7 +6,7 @@
 #    By: dufama <dufama@student.42lausanne.ch>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/02/20 17:22:56 by dufama            #+#    #+#              #
-#    Updated: 2026/03/03 16:41:19 by dufama           ###   ########.fr        #
+#    Updated: 2026/03/03 16:44:49 by dufama           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,7 +45,8 @@ SRCS_PARSING = parsing/read_file.c \
 
 SRCS_RENDER = render/game.c \
 				render/draw.c \
-				render/raycasting.c
+				render/raycasting.c \
+				render/player.c
 
 SRCS_MAIN = main.c
 

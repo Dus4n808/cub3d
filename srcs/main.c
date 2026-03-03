@@ -6,6 +6,7 @@ int main()
 	ft_memset(&game, 0, sizeof(t_game));
 	parse_file(&game, "map/map1.cub");
 	map_is_playable(&game);
+	init_player_pos(&game.player);
 	init_game(&game);
 	floor_and_ceiling(&game);
 	raycasting(&game);
