@@ -6,7 +6,7 @@
 /*   By: dufama <dufama@student.42lausanne.ch>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/03 15:59:17 by dufama            #+#    #+#             */
-/*   Updated: 2026/03/03 17:31:43 by dufama           ###   ########.fr       */
+/*   Updated: 2026/03/05 16:34:50 by dufama           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,23 +97,29 @@ void	calculs_wall(t_ray *ray)
 
 void	draw_cols(t_game *game, t_ray *ray, int x)
 {
-	int	y;
-	int	color;
+	t_draw_tex	draw;
+	int			y;
 
-	if (ray->side == 0 && ray->dir_x > 0)
-		color = 0xFF0000;
-	else if (ray->side == 0 && ray->dir_x < 0)
-		color = 0x00FF00;
-	else if (ray->side == 1 && ray->dir_y > 0)
-		color = 0x0000FF;
-	else
-		color = 0xFFFF00;
+	init_text(game, ray, &draw);
 	y = ray->draw_start;
 	while (y <= ray->draw_end)
 	{
-		put_pixel(&game->img, x, y, color);
+		draw.tex_y = (int)draw.tex_pos & (draw.tex->height - 1);
+		draw.tex_pos += draw.step;
+		draw.colors = *(unsigned int *)(draw.tex->addr + (draw.tex_y * draw.tex->line_len + draw.tex_x * (draw.tex->bpp / 8)));
+		put_pixel(&game->img, x, y, draw.colors);
 		y++;
 	}
+}
+
+void	print_value(t_game *game, t_ray *ray)
+{
+	printf("Player pos: x: %f, y: %f\n", game->player.x, game->player.y);
+	printf("Player dir: dir_x: %f, dir_y: %f\n", game->player.dir_x, game->player.dir_y);
+	printf("Player fov: fov_x: %f, fov_y: %f\n", game->player.fov_x, game->player.fov_y);
+	printf("ray camera: camera_x: %f\n", ray->camera_x);
+	printf("Ray dir: dir_x: %f, dir_y: %f\n", ray->dir_x, ray->dir_y);
+	printf("Ray delta: delta_x: %f, delta_y: %f\n", ray->delta_x, ray->delta_y);
 }
 
 void	raycasting(t_game *game)
@@ -131,4 +137,5 @@ void	raycasting(t_game *game)
 		draw_cols(game, &ray, x);
 		x++;
 	}
+	print_value(game, &ray);
 }

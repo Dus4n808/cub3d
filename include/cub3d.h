@@ -34,6 +34,10 @@
 # define TILE_SIZE 64
 # define MOVE_SPEED 0.1
 # define ROT_SPEED 0.03
+# define NORTH 0
+# define SOUTH 1
+# define EAST 2
+# define WEST 3
 
 
 typedef struct s_textures
@@ -75,6 +79,30 @@ typedef struct s_img
 	int		endian;
 } t_img;
 
+typedef struct s_tex_img
+{
+	void	*img;
+	char	*addr;
+	int		bpp;
+	int		line_len;
+	int		endian;
+	int		width;
+	int		height;
+} t_tex_img;
+
+typedef struct s_draw_tex
+{
+	t_tex_img	*tex;
+	double		wall_x;
+	double		wall_y;
+	int			tex_x;
+	int			tex_y;
+	double		step;
+	double		tex_pos;
+	int			colors;
+
+} t_draw_tex;
+
 typedef struct s_ray
 {
 	double	camera_x;
@@ -102,6 +130,7 @@ typedef struct s_game
 	void		*mlx;
 	void		*win;
 	t_textures	textures;
+	t_tex_img	tex[4];
 	t_player	player;
 	t_map		map;
 	t_img		img;
@@ -131,6 +160,9 @@ int	init_game(t_game *game);
 void	put_pixel(t_img *img, int x, int y, int color);
 int		rgb_to_int(int r, int g, int b);
 void	floor_and_ceiling(t_game *game);
+//textures
+void	load_tex(t_game *game);
+void	init_text(t_game *game, t_ray *ray, t_draw_tex *draw);
 //raycasting
 void	raycasting(t_game *game);
 //player

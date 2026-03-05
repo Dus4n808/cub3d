@@ -6,7 +6,7 @@
 /*   By: dufama <dufama@student.42lausanne.ch>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/02 18:19:00 by dufama            #+#    #+#             */
-/*   Updated: 2026/03/03 17:10:55 by dufama           ###   ########.fr       */
+/*   Updated: 2026/03/05 16:35:57 by dufama           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ int	init_game(t_game *game)
 	if (!game->img.img)
 		exit_error(game, "Image creation failed");
 	game->img.addr = mlx_get_data_addr(game->img.img, &game->img.bpp, &game->img.line_len, &game->img.endian);
+	load_tex(game);
 	set_hooks(game);
 	return (0);
 }
