@@ -6,7 +6,7 @@
 /*   By: dufama <dufama@student.42lausanne.ch>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/26 14:23:48 by dufama            #+#    #+#             */
-/*   Updated: 2026/03/09 17:48:32 by dufama           ###   ########.fr       */
+/*   Updated: 2026/03/17 12:38:27 by dufama           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,19 @@ void	free_element(t_game *game)
 
 void	free_game(t_game *game)
 {
+	int	i;
+
 	free_element(game);
+	i = 0;
+	while (i < 4)
+	{
+		if (game->tex[i].img)
+			mlx_destroy_image(game->mlx, game->tex[i].img);
+		i++;
+	}
+	if (game->img.img)
+		mlx_destroy_image(game->mlx, game->img.img);
 	if (game->win)
 		mlx_destroy_window(game->mlx, game->win);
+	free(game->mlx);
 }
