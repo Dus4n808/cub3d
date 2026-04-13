@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_elements.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dufama <dufama@student.42lausanne.ch>      +#+  +:+       +#+        */
+/*   By: lubaroni <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/26 15:57:44 by dufama            #+#    #+#             */
-/*   Updated: 2026/03/17 12:48:46 by dufama           ###   ########.fr       */
+/*   Updated: 2026/04/13 17:54:16 by lubaroni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,20 @@ static int	is_valid_num(const char *str)
 	return (digit);
 }
 
+/*
+** FIX: Extracted rgb assignment + validation into helper
+*/
+static void	set_rgb_values(t_game *game, char **sec, int *rgb)
+{
+	rgb[0] = ft_atoi(sec[0]);
+	rgb[1] = ft_atoi(sec[1]);
+	rgb[2] = ft_atoi(sec[2]);
+	free_lines(sec);
+	valid_rgb(game, rgb[0]);
+	valid_rgb(game, rgb[1]);
+	valid_rgb(game, rgb[2]);
+}
+
 void	parse_color(t_game *game, char *line, int *rgb, int *flag)
 {
 	char	**sec;
@@ -76,18 +90,12 @@ void	parse_color(t_game *game, char *line, int *rgb, int *flag)
 			free_lines(sec);
 		exit_error(game, "Invalid RGB format");
 	}
-	if (!is_valid_num(sec[0]) || !is_valid_num(sec[1]) || !is_valid_num(sec[2]))
+	if (!is_valid_num(sec[0]) || !is_valid_num(sec[1])
+		|| !is_valid_num(sec[2]))
 	{
 		free_lines(sec);
 		exit_error(game, "RGB values must be numbers");
 	}
-	rgb[0] = ft_atoi(sec[0]);
-	rgb[1] = ft_atoi(sec[1]);
-	rgb[2] = ft_atoi(sec[2]);
-	free_lines(sec);
-	valid_rgb(game, rgb[0]);
-	valid_rgb(game, rgb[1]);
-	valid_rgb(game, rgb[2]);
+	set_rgb_values(game, sec, rgb);
 	*flag = 1;
 }
-

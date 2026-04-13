@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_elements.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dufama <dufama@student.42lausanne.ch>      +#+  +:+       +#+        */
+/*   By: lubaroni <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/01 14:38:43 by dufama            #+#    #+#             */
-/*   Updated: 2026/03/01 16:13:27 by dufama           ###   ########.fr       */
+/*   Updated: 2026/04/13 17:55:17 by lubaroni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,5 +65,3 @@ void	check_all_elements(t_game *game)
 	if (!game->textures.set_ceiling)
 		exit_error(game, "Missing ceiling color");
 }
-
-

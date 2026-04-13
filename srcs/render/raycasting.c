@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dufama <dufama@student.42lausanne.ch>      +#+  +:+       +#+        */
+/*   By: lubaroni <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/03 15:59:17 by dufama            #+#    #+#             */
-/*   Updated: 2026/03/05 16:34:50 by dufama           ###   ########.fr       */
+/*   Updated: 2026/04/13 18:27:43 by lubaroni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,9 @@ void	calculs_step(t_game *game, t_ray *ray)
 	}
 }
 
+/*
+** FIX: Split the out-of-bounds check across two lines.
+*/
 void	dda_algo(t_game *game, t_ray *ray)
 {
 	while (ray->hit == 0)
@@ -70,22 +73,32 @@ void	dda_algo(t_game *game, t_ray *ray)
 			ray->map_y += ray->step_y;
 			ray->side = 1;
 		}
-		if (ray->map_y < 0 || ray->map_y >= game->map.rows || ray->map_x < 0 || ray->map_x >= game->map.cols)
+		if (ray->map_y < 0 || ray->map_y >= game->map.rows
+			|| ray->map_x < 0 || ray->map_x >= game->map.cols)
 		{
 			ray->hit = 1;
-			break;
+			break ;
 		}
 		if (game->map.grid[ray->map_y][ray->map_x] == '1')
 			ray->hit = 1;
 	}
 }
 
+/*
+** FIX: perp can get very close to zero when the ray nearly grazes a wall
+**      or the player is right up against one. That makes line_height blow
+**      up to a massive number, the texture step shrinks to almost nothing,
+**      and you get flickering or missing wall slices. Clamping to 0.0001
+**      keeps things sane without any visible difference in rendering.
+*/
 void	calculs_wall(t_ray *ray)
 {
 	if (ray->side == 0)
 		ray->perp = ray->side_x - ray->delta_x;
 	else
 		ray->perp = ray->side_y - ray->delta_y;
+	if (ray->perp < 0.0001)
+		ray->perp = 0.0001;
 	ray->line_height = (int)(WIN_HEIGTH / ray->perp);
 	ray->draw_start = -ray->line_height / 2 + WIN_HEIGTH / 2;
 	if (ray->draw_start < 0)
@@ -93,33 +106,6 @@ void	calculs_wall(t_ray *ray)
 	ray->draw_end = ray->line_height / 2 + WIN_HEIGTH / 2;
 	if (ray->draw_end >= WIN_HEIGTH)
 		ray->draw_end = WIN_HEIGTH - 1;
-}
-
-void	draw_cols(t_game *game, t_ray *ray, int x)
-{
-	t_draw_tex	draw;
-	int			y;
-
-	init_text(game, ray, &draw);
-	y = ray->draw_start;
-	while (y <= ray->draw_end)
-	{
-		draw.tex_y = (int)draw.tex_pos & (draw.tex->height - 1);
-		draw.tex_pos += draw.step;
-		draw.colors = *(unsigned int *)(draw.tex->addr + (draw.tex_y * draw.tex->line_len + draw.tex_x * (draw.tex->bpp / 8)));
-		put_pixel(&game->img, x, y, draw.colors);
-		y++;
-	}
-}
-
-void	print_value(t_game *game, t_ray *ray)
-{
-	printf("Player pos: x: %f, y: %f\n", game->player.x, game->player.y);
-	printf("Player dir: dir_x: %f, dir_y: %f\n", game->player.dir_x, game->player.dir_y);
-	printf("Player fov: fov_x: %f, fov_y: %f\n", game->player.fov_x, game->player.fov_y);
-	printf("ray camera: camera_x: %f\n", ray->camera_x);
-	printf("Ray dir: dir_x: %f, dir_y: %f\n", ray->dir_x, ray->dir_y);
-	printf("Ray delta: delta_x: %f, delta_y: %f\n", ray->delta_x, ray->delta_y);
 }
 
 void	raycasting(t_game *game)

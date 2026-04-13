@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dufama <dufama@student.42lausanne.ch>      +#+  +:+       +#+        */
+/*   By: lubaroni <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/26 17:03:25 by dufama            #+#    #+#             */
-/*   Updated: 2026/03/03 17:30:07 by dufama           ###   ########.fr       */
+/*   Updated: 2026/04/13 17:40:57 by lubaroni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,10 +54,12 @@ static char	*add_padding(char *line, int max_len)
 	}
 	pad[i] = '\0';
 	return (pad);
-
 }
 
-static void fill_map(t_game *game, char **lines)
+/*
+** FIX: Added ft_memset after grid malloc to initialize all pointers to NULL.
+*/
+static void	fill_map(t_game *game, char **lines)
 {
 	int		i;
 	int		max_len;
@@ -68,6 +70,7 @@ static void fill_map(t_game *game, char **lines)
 	game->map.grid = malloc(sizeof(char *) * (game->map.rows + 1));
 	if (!game->map.grid)
 		exit_error(game, "Memory allocation failed");
+	ft_memset(game->map.grid, 0, sizeof(char *) * (game->map.rows + 1));
 	i = 0;
 	while (lines[i])
 	{

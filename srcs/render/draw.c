@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dufama <dufama@student.42lausanne.ch>      +#+  +:+       +#+        */
+/*   By: lubaroni <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/03 13:59:44 by dufama            #+#    #+#             */
-/*   Updated: 2026/03/03 15:27:55 by dufama           ###   ########.fr       */
+/*   Updated: 2026/04/13 17:45:59 by lubaroni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,9 @@ int	rgb_to_int(int r, int g, int b)
 	return (r << 16 | g << 8 | b);
 }
 
+/*
+** FIX: Split long rgb_to_int calls.
+*/
 void	floor_and_ceiling(t_game *game)
 {
 	int	x;
@@ -34,8 +37,10 @@ void	floor_and_ceiling(t_game *game)
 	int	floor;
 	int	ceiling;
 
-	floor = rgb_to_int(game->textures.floor[0], game->textures.floor[1], game->textures.floor[2]);
-	ceiling = rgb_to_int(game->textures.ceiling[0], game->textures.ceiling[1], game->textures.ceiling[2]);
+	floor = rgb_to_int(game->textures.floor[0],
+			game->textures.floor[1], game->textures.floor[2]);
+	ceiling = rgb_to_int(game->textures.ceiling[0],
+			game->textures.ceiling[1], game->textures.ceiling[2]);
 	y = 0;
 	while (y < WIN_HEIGTH)
 	{
@@ -52,4 +57,37 @@ void	floor_and_ceiling(t_game *game)
 	}
 }
 
+/*
+** FIX: Split the long pixel color fetch line.
+*/
+void	draw_cols(t_game *game, t_ray *ray, int x)
+{
+	t_draw_tex	draw;
+	int			y;
 
+	init_text(game, ray, &draw);
+	y = ray->draw_start;
+	while (y <= ray->draw_end)
+	{
+		draw.tex_y = (int)draw.tex_pos & (draw.tex->height - 1);
+		draw.tex_pos += draw.step;
+		draw.colors = *(unsigned int *)(draw.tex->addr
+				+ (draw.tex_y * draw.tex->line_len
+					+ draw.tex_x * (draw.tex->bpp / 8)));
+		put_pixel(&game->img, x, y, draw.colors);
+		y++;
+	}
+}
+
+void	print_value(t_game *game, t_ray *ray)
+{
+	printf("Player pos: x: %f, y: %f\n", game->player.x, game->player.y);
+	printf("Player dir: dir_x: %f, dir_y: %f\n",
+		game->player.dir_x, game->player.dir_y);
+	printf("Player fov: fov_x: %f, fov_y: %f\n",
+		game->player.fov_x, game->player.fov_y);
+	printf("ray camera: camera_x: %f\n", ray->camera_x);
+	printf("Ray dir: dir_x: %f, dir_y: %f\n", ray->dir_x, ray->dir_y);
+	printf("Ray delta: delta_x: %f, delta_y: %f\n",
+		ray->delta_x, ray->delta_y);
+}

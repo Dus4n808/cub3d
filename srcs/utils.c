@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dufama <dufama@student.42lausanne.ch>      +#+  +:+       +#+        */
+/*   By: lubaroni <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/26 14:23:48 by dufama            #+#    #+#             */
-/*   Updated: 2026/03/17 12:38:27 by dufama           ###   ########.fr       */
+/*   Updated: 2026/04/13 18:31:55 by lubaroni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,4 +64,14 @@ void	free_game(t_game *game)
 	if (game->win)
 		mlx_destroy_window(game->mlx, game->win);
 	free(game->mlx);
+}
+
+/*
+** NOTE: Moved here from game.c to free a slot for render_hook.
+*/
+int	close_game(t_game *game)
+{
+	free_game(game);
+	exit(0);
+	return (0);
 }

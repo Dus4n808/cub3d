@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_file.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dufama <dufama@student.42lausanne.ch>      +#+  +:+       +#+        */
+/*   By: lubaroni <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/26 15:55:36 by dufama            #+#    #+#             */
-/*   Updated: 2026/03/02 17:01:53 by dufama           ###   ########.fr       */
+/*   Updated: 2026/04/13 17:54:52 by lubaroni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ static int	empty_line(const char *line)
 	i = 0;
 	while (line[i])
 	{
-		if (line[i] != ' ' && line[i] != '\n' && line[i] != '\r' && line[i] != '\t')
+		if (line[i] != ' ' && line[i] != '\n'
+			&& line[i] != '\r' && line[i] != '\t')
 			return (0);
 		i++;
 	}
@@ -44,6 +45,25 @@ int	is_map(const char *line)
 	return (1);
 }
 
+static void	parse_line(t_game *game, char *line)
+{
+	if (ft_strncmp(line, "NO ", 3) == 0)
+		parse_textures(game, line, &game->textures.north);
+	else if (ft_strncmp(line, "SO ", 3) == 0)
+		parse_textures(game, line, &game->textures.south);
+	else if (ft_strncmp(line, "WE ", 3) == 0)
+		parse_textures(game, line, &game->textures.west);
+	else if (ft_strncmp(line, "EA ", 3) == 0)
+		parse_textures(game, line, &game->textures.east);
+	else if (ft_strncmp(line, "F ", 2) == 0)
+		parse_color(game, line, game->textures.floor,
+			&game->textures.set_floor);
+	else if (ft_strncmp(line, "C ", 2) == 0)
+		parse_color(game, line, game->textures.ceiling,
+			&game->textures.set_ceiling);
+	else if (!empty_line(line))
+		exit_error(game, "Unknown element");
+}
 
 static int	parse_elements(t_game *game, char **lines)
 {
@@ -52,22 +72,7 @@ static int	parse_elements(t_game *game, char **lines)
 	i = 0;
 	while (lines[i] && !is_map(lines[i]))
 	{
-		if (ft_strncmp(lines[i], "NO ", 3) == 0)
-			parse_textures(game, lines[i], &game->textures.north);
-		else if (ft_strncmp(lines[i], "SO ", 3) == 0)
-			parse_textures(game, lines[i], &game->textures.south);
-		else if (ft_strncmp(lines[i], "WE ", 3) == 0)
-			parse_textures(game, lines[i], &game->textures.west);
-		else if (ft_strncmp(lines[i], "EA ", 3) == 0)
-			parse_textures(game, lines[i], &game->textures.east);
-		else if (ft_strncmp(lines[i], "F ", 2) == 0)
-			parse_color(game, lines[i], game->textures.floor, &game->textures.set_floor);
-		else if (ft_strncmp(lines[i], "C ", 2) == 0)
-			parse_color(game, lines[i], game->textures.ceiling, &game->textures.set_ceiling);
-		else if (empty_line(lines[i]))
-			;
-		else
-			exit_error(game, "Unknown element");
+		parse_line(game, lines[i]);
 		i++;
 	}
 	return (0);

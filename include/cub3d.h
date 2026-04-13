@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cub3d.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lubaroni <marvin@42lausanne.ch>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/04/13 17:19:49 by lubaroni          #+#    #+#             */
+/*   Updated: 2026/04/13 18:32:23 by lubaroni         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef CUB3D_H
 # define CUB3D_H
 
@@ -28,7 +40,6 @@
 #  define KEY_RIGHT 65363
 # endif
 
-
 # define WIN_WIDTH 1280
 # define WIN_HEIGTH 720
 # define TILE_SIZE 64
@@ -38,7 +49,6 @@
 # define SOUTH 1
 # define EAST 2
 # define WEST 3
-
 
 typedef struct s_textures
 {
@@ -77,7 +87,7 @@ typedef struct s_img
 	int		bpp;
 	int		line_len;
 	int		endian;
-} t_img;
+}	t_img;
 
 typedef struct s_tex_img
 {
@@ -88,7 +98,7 @@ typedef struct s_tex_img
 	int		endian;
 	int		width;
 	int		height;
-} t_tex_img;
+}	t_tex_img;
 
 typedef struct s_draw_tex
 {
@@ -100,8 +110,7 @@ typedef struct s_draw_tex
 	double		step;
 	double		tex_pos;
 	int			colors;
-
-} t_draw_tex;
+}	t_draw_tex;
 
 typedef struct s_ray
 {
@@ -122,8 +131,7 @@ typedef struct s_ray
 	int		line_height;
 	int		draw_start;
 	int		draw_end;
-} t_ray;
-
+}	t_ray;
 
 typedef struct s_game
 {
@@ -142,6 +150,7 @@ void	exit_error(t_game *game, char *msg);
 void	free_lines(char **lines);
 void	free_element(t_game *game);
 void	free_game(t_game *game);
+int		close_game(t_game *game);
 //parsing
 int		check_extension(const char *filename);
 char	**read_all_lines(const char *filename);
@@ -155,11 +164,15 @@ void	map_is_playable(t_game *game);
 //render
 void	render(t_game *game);
 //game
-int	init_game(t_game *game);
+int		render_hook(void *param);
+int		init_game(t_game *game);
 //draw
 void	put_pixel(t_img *img, int x, int y, int color);
 int		rgb_to_int(int r, int g, int b);
 void	floor_and_ceiling(t_game *game);
+// FIX: draw_cols and print_value moved from raycasting.c to draw.c
+void	draw_cols(t_game *game, t_ray *ray, int x);
+void	print_value(t_game *game, t_ray *ray);
 //textures
 void	load_tex(t_game *game);
 void	init_text(t_game *game, t_ray *ray, t_draw_tex *draw);
@@ -170,6 +183,10 @@ void	init_player_pos(t_player *player);
 //move
 void	move_forward(t_game *game);
 void	move_backward(t_game *game);
+// FIX: Added strafe prototypes (defined in move.c)
+void	move_left(t_game *game);
+void	move_right(t_game *game);
+// FIX: Rotation functions moved to rotate.c
 void	rotate_left(t_game *game);
 void	rotate_right(t_game *game);
 

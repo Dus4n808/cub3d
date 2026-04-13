@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dufama <dufama@student.42lausanne.ch>      +#+  +:+       +#+        */
+/*   By: lubaroni <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/02 16:29:52 by dufama            #+#    #+#             */
-/*   Updated: 2026/03/03 16:59:36 by dufama           ###   ########.fr       */
+/*   Updated: 2026/04/13 17:40:11 by lubaroni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static void	check_player(t_game *game)
 		while (game->map.grid[y][x])
 		{
 			if (game->map.grid[y][x] == 'N' || game->map.grid[y][x] == 'S'
-			|| game->map.grid[y][x] == 'E' || game->map.grid[y][x] == 'W')
+				|| game->map.grid[y][x] == 'E' || game->map.grid[y][x] == 'W')
 			{
 				count++;
 				game->player.x = (double)x + 0.5;
@@ -69,9 +69,13 @@ static void	check_borders(t_game *game)
 			exit_error(game, "Map is not closed");
 }
 
+/*
+** FIX: Split the out-of-bounds condition across two lines.
+*/
 static void	flood_fill(t_game *game, char **map, int y, int x)
 {
-	if (y < 0 || x < 0 || y >= game->map.rows || x >= (int)ft_strlen(map[y]))
+	if (y < 0 || x < 0 || y >= game->map.rows
+		|| x >= (int)ft_strlen(map[y]))
 		exit_error(game, "Map is not closed");
 	if (map[y][x] == '1' || map[y][x] == 'F')
 		return ;

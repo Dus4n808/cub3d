@@ -1,8 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   read_file.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lubaroni <marvin@42lausanne.ch>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/04/13 17:20:31 by lubaroni          #+#    #+#             */
+/*   Updated: 2026/04/13 17:56:01 by lubaroni         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
 static int	open_file(const char *filename)
 {
-	return(open(filename, O_RDONLY));
+	return (open(filename, O_RDONLY));
 }
 
 int	check_extension(const char *filename)
@@ -40,19 +52,33 @@ static int	count_line(const char *filename)
 	if (fd == -1)
 		return (-1);
 	count = 0;
-	while ((line = get_next_line(fd)) != NULL)
+	line = get_next_line(fd);
+	while (line)
 	{
 		count++;
 		free(line);
+		line = get_next_line(fd);
 	}
 	close(fd);
 	return (count);
 }
 
+static void	fill_lines(char **lines, int fd)
+{
+	int	i;
+
+	i = 0;
+	lines[i] = get_next_line(fd);
+	while (lines[i])
+	{
+		i++;
+		lines[i] = get_next_line(fd);
+	}
+}
+
 char	**read_all_lines(const char *filename)
 {
 	char	**lines;
-	int		i;
 	int		nb_line;
 	int		fd;
 
@@ -68,12 +94,7 @@ char	**read_all_lines(const char *filename)
 		close(fd);
 		return (NULL);
 	}
-	i = 0;
-	while ((lines[i] = get_next_line(fd)) != NULL)
-		i++;
-	lines[i] = NULL;
+	fill_lines(lines, fd);
 	close(fd);
 	return (lines);
 }
-
-
