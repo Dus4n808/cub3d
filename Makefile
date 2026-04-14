@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: dufama <dufama@student.42lausanne.ch>      +#+  +:+       +#+         #
+#    By: lubaroni <marvin@42lausanne.ch>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/02/20 17:22:56 by dufama            #+#    #+#              #
-#    Updated: 2026/04/14 14:06:51 by dufama           ###   ########.fr        #
+#    Updated: 2026/04/14 14:19:04 by lubaroni         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ B = \033[0;34m
 Y = \033[0;33m
 R = \033[0m
 
-NAME = cub3d
+NAME = cub3D
 CC = cc -g
 CFLAGS = -Wall -Werror -Wextra -I include/
 SRCS_DIR = srcs/
