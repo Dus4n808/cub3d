@@ -6,7 +6,7 @@
 /*   By: dufama <dufama@student.42lausanne.ch>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/13 17:19:49 by lubaroni          #+#    #+#             */
-/*   Updated: 2026/04/14 13:22:44 by dufama           ###   ########.fr       */
+/*   Updated: 2026/04/14 14:23:54 by dufama           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -170,9 +170,7 @@ int		init_game(t_game *game);
 void	put_pixel(t_img *img, int x, int y, int color);
 int		rgb_to_int(int r, int g, int b);
 void	floor_and_ceiling(t_game *game);
-// FIX: draw_cols and print_value moved from raycasting.c to draw.c
 void	draw_cols(t_game *game, t_ray *ray, int x);
-void	print_value(t_game *game, t_ray *ray);
 //textures
 void	load_tex(t_game *game);
 void	init_text(t_game *game, t_ray *ray, t_draw_tex *draw);
@@ -183,10 +181,8 @@ void	init_player_pos(t_player *player);
 //move
 void	move_forward(t_game *game);
 void	move_backward(t_game *game);
-// FIX: Added strafe prototypes (defined in move.c)
 void	move_left(t_game *game);
 void	move_right(t_game *game);
-// FIX: Rotation functions moved to rotate.c
 void	rotate_left(t_game *game);
 void	rotate_right(t_game *game);
 
