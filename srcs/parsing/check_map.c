@@ -6,7 +6,7 @@
 /*   By: dufama <dufama@student.42lausanne.ch>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/02 16:29:52 by dufama            #+#    #+#             */
-/*   Updated: 2026/04/14 15:38:19 by dufama           ###   ########.fr       */
+/*   Updated: 2026/04/14 16:39:29 by dufama           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,33 +41,58 @@ static void	check_player(t_game *game)
 		exit_error(game, "Map must have exactly one player");
 }
 
-static void	check_borders(t_game *game)
-{
-	int	x;
-	int	len;
 
-	x = 0;
-	while (x < game->map.rows)
+static int check_char(char **map)
+{
+	int i;
+	int y;
+
+	i = 0;
+	while (map[i])
 	{
-		len = (int)ft_strlen(game->map.grid[x]);
-		if (len > 0 && game->map.grid[x][0] != '1'
-			&& game->map.grid[x][0] != ' ')
-			exit_error(game, "Map is not closed");
-		if (len > 0 && game->map.grid[x][len - 1] != '1'
-			&& game->map.grid[x][len - 1] != ' ')
-			exit_error(game, "Map is not closed");
-		x++;
+		y = 0;
+		while (map[i][y])
+		{
+			if (map[i][y] == '1' || map[i][y] == '0' ||
+				map[i][y] == 'N' || map[i][y] == 'S' ||
+				map[i][y] == 'W' || map[i][y] == 'E' || map[i][y] == ' '
+				|| map[i][y] == '\n')
+				y++;
+			else
+				return (1);
+		}
+		i++;
 	}
-	x = -1;
-	while (++x < (int)ft_strlen(game->map.grid[0]))
-		if (game->map.grid[0][x] != '1' && game->map.grid[0][x] != ' ')
-			exit_error(game, "Map is not closed");
-	x = -1;
-	while (++x < (int)ft_strlen(game->map.grid[game->map.rows - 1]))
-		if (game->map.grid[game->map.rows - 1][x] != '1'
-			&& game->map.grid[game->map.rows - 1][x] != ' ')
-			exit_error(game, "Map is not closed");
+	return (0);
 }
+
+// static void	check_borders(t_game *game)
+// {
+// 	int	x;
+// 	int	len;
+
+// 	x = 0;
+// 	while (x < game->map.rows)
+// 	{
+// 		len = (int)ft_strlen(game->map.grid[x]);
+// 		if (len > 0 && game->map.grid[x][0] != '1'
+// 			&& game->map.grid[x][0] != ' ')
+// 			exit_error(game, "Map is not closed");
+// 		if (len > 0 && game->map.grid[x][len - 1] != '1'
+// 			&& game->map.grid[x][len - 1] != ' ')
+// 			exit_error(game, "Map is not closed");
+// 		x++;
+// 	}
+// 	x = -1;
+// 	while (++x < (int)ft_strlen(game->map.grid[0]))
+// 		if (game->map.grid[0][x] != '1' && game->map.grid[0][x] != ' ')
+// 			exit_error(game, "Map is not closed");
+// 	x = -1;
+// 	while (++x < (int)ft_strlen(game->map.grid[game->map.rows - 1]))
+// 		if (game->map.grid[game->map.rows - 1][x] != '1'
+// 			&& game->map.grid[game->map.rows - 1][x] != ' ')
+// 			exit_error(game, "Map is not closed");
+// }
 
 static void	flood_fill(t_game *game, char **map, int y, int x)
 {
@@ -112,6 +137,11 @@ static void	check_map_closed(t_game *game)
 		i++;
 	}
 	copy[i] = NULL;
+	if (check_char(copy))
+	{
+		free_lines(copy);
+		exit_error(game, "Invalid character in map");
+	}
 	flood_fill(game, copy, (int)game->player.y, (int)game->player.x);
 	free_lines(copy);
 }
@@ -119,6 +149,6 @@ static void	check_map_closed(t_game *game)
 void	map_is_playable(t_game *game)
 {
 	check_player(game);
-	check_borders(game);
+	//check_borders(game);
 	check_map_closed(game);
 }
