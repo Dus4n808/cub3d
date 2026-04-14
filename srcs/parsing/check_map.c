@@ -6,7 +6,7 @@
 /*   By: lubaroni <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/02 16:29:52 by dufama            #+#    #+#             */
-/*   Updated: 2026/04/13 17:40:11 by lubaroni         ###   ########.fr       */
+/*   Updated: 2026/04/14 14:09:48 by lubaroni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,9 +69,6 @@ static void	check_borders(t_game *game)
 			exit_error(game, "Map is not closed");
 }
 
-/*
-** FIX: Split the out-of-bounds condition across two lines.
-*/
 static void	flood_fill(t_game *game, char **map, int y, int x)
 {
 	if (y < 0 || x < 0 || y >= game->map.rows

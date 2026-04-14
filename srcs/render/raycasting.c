@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dufama <dufama@student.42lausanne.ch>      +#+  +:+       +#+        */
+/*   By: lubaroni <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/03 15:59:17 by dufama            #+#    #+#             */
-/*   Updated: 2026/04/14 13:35:51 by dufama           ###   ########.fr       */
+/*   Updated: 2026/04/14 14:10:55 by lubaroni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,9 +54,6 @@ void	calculs_step(t_game *game, t_ray *ray)
 	}
 }
 
-/*
-** FIX: Split the out-of-bounds check across two lines.
-*/
 void	dda_algo(t_game *game, t_ray *ray)
 {
 	while (ray->hit == 0)
@@ -84,13 +81,6 @@ void	dda_algo(t_game *game, t_ray *ray)
 	}
 }
 
-/*
-** FIX: perp can get very close to zero when the ray nearly grazes a wall
-**      or the player is right up against one. That makes line_height blow
-**      up to a massive number, the texture step shrinks to almost nothing,
-**      and you get flickering or missing wall slices. Clamping to 0.0001
-**      keeps things sane without any visible difference in rendering.
-*/
 void	calculs_wall(t_ray *ray)
 {
 	if (ray->side == 0)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dufama <dufama@student.42lausanne.ch>      +#+  +:+       +#+        */
+/*   By: lubaroni <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/26 14:23:48 by dufama            #+#    #+#             */
-/*   Updated: 2026/04/14 14:06:16 by dufama           ###   ########.fr       */
+/*   Updated: 2026/04/14 14:11:17 by lubaroni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,9 +68,6 @@ void	free_game(t_game *game)
 	free(game->mlx);
 }
 
-/*
-** NOTE: Moved here from game.c to free a slot for render_hook.
-*/
 int	close_game(t_game *game)
 {
 	free_game(game);

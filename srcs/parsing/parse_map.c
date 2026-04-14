@@ -6,7 +6,7 @@
 /*   By: lubaroni <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/26 17:03:25 by dufama            #+#    #+#             */
-/*   Updated: 2026/04/13 17:40:57 by lubaroni         ###   ########.fr       */
+/*   Updated: 2026/04/14 14:10:05 by lubaroni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,9 +56,6 @@ static char	*add_padding(char *line, int max_len)
 	return (pad);
 }
 
-/*
-** FIX: Added ft_memset after grid malloc to initialize all pointers to NULL.
-*/
 static void	fill_map(t_game *game, char **lines)
 {
 	int		i;

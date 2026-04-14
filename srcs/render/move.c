@@ -6,7 +6,7 @@
 /*   By: lubaroni <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/03 17:04:33 by dufama            #+#    #+#             */
-/*   Updated: 2026/04/13 17:36:02 by lubaroni         ###   ########.fr       */
+/*   Updated: 2026/04/14 14:10:35 by lubaroni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,6 @@ void	move_backward(t_game *game)
 		game->player.y = new_y;
 }
 
-/*
-** FIX: Added strafe left (A key).
-*/
 void	move_left(t_game *game)
 {
 	double	new_x;
@@ -63,9 +60,6 @@ void	move_left(t_game *game)
 		game->player.y = new_y;
 }
 
-/*
-** FIX: Added strafe right (D key).
-*/
 void	move_right(t_game *game)
 {
 	double	new_x;

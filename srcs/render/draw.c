@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dufama <dufama@student.42lausanne.ch>      +#+  +:+       +#+        */
+/*   By: lubaroni <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/03 13:59:44 by dufama            #+#    #+#             */
-/*   Updated: 2026/04/14 14:08:35 by dufama           ###   ########.fr       */
+/*   Updated: 2026/04/14 14:09:37 by lubaroni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,6 @@ int	rgb_to_int(int r, int g, int b)
 	return (r << 16 | g << 8 | b);
 }
 
-/*
-** FIX: Split long rgb_to_int calls.
-*/
 void	floor_and_ceiling(t_game *game)
 {
 	int	x;
@@ -57,9 +54,6 @@ void	floor_and_ceiling(t_game *game)
 	}
 }
 
-/*
-** FIX: Split the long pixel color fetch line.
-*/
 void	draw_cols(t_game *game, t_ray *ray, int x)
 {
 	t_draw_tex	draw;

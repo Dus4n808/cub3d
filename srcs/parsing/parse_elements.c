@@ -6,7 +6,7 @@
 /*   By: lubaroni <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/26 15:57:44 by dufama            #+#    #+#             */
-/*   Updated: 2026/04/13 17:54:16 by lubaroni         ###   ########.fr       */
+/*   Updated: 2026/04/14 14:09:56 by lubaroni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,9 +60,6 @@ static int	is_valid_num(const char *str)
 	return (digit);
 }
 
-/*
-** FIX: Extracted rgb assignment + validation into helper
-*/
 static void	set_rgb_values(t_game *game, char **sec, int *rgb)
 {
 	rgb[0] = ft_atoi(sec[0]);

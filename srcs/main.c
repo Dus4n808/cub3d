@@ -3,19 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dufama <dufama@student.42lausanne.ch>      +#+  +:+       +#+        */
+/*   By: lubaroni <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/13 17:20:03 by lubaroni          #+#    #+#             */
-/*   Updated: 2026/04/14 13:34:40 by dufama           ###   ########.fr       */
+/*   Updated: 2026/04/14 14:11:11 by lubaroni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-/*
-** FIX: map path is now read from argv[1] instead of being hardcoded.
-**      Also added return value and proper usage error message.
-*/
 int	main(int argc, char **argv)
 {
 	t_game	game;

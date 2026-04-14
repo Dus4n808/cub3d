@@ -6,15 +6,12 @@
 /*   By: lubaroni <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/05 16:08:57 by dufama            #+#    #+#             */
-/*   Updated: 2026/04/13 17:41:33 by lubaroni         ###   ########.fr       */
+/*   Updated: 2026/04/14 14:11:05 by lubaroni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-/*
-** FIX: Split long mlx_xpm_file_to_image call.
-*/
 static void	init_one(t_game *game, t_tex_img *tex, char *filename)
 {
 	tex->img = mlx_xpm_file_to_image(game->mlx, filename,
