@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lubaroni <marvin@42lausanne.ch>            +#+  +:+       +#+        */
+/*   By: dufama <dufama@student.42lausanne.ch>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/02 16:29:52 by dufama            #+#    #+#             */
-/*   Updated: 2026/04/14 14:09:48 by lubaroni         ###   ########.fr       */
+/*   Updated: 2026/04/14 15:38:19 by dufama           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,11 +73,17 @@ static void	flood_fill(t_game *game, char **map, int y, int x)
 {
 	if (y < 0 || x < 0 || y >= game->map.rows
 		|| x >= (int)ft_strlen(map[y]))
+	{
+		free_lines(map);
 		exit_error(game, "Map is not closed");
+	}
 	if (map[y][x] == '1' || map[y][x] == 'F')
 		return ;
 	if (map[y][x] == ' ')
+	{
+		free_lines(map);
 		exit_error(game, "Map is not closed");
+	}
 	map[y][x] = 'F';
 	flood_fill(game, map, y + 1, x);
 	flood_fill(game, map, y - 1, x);
