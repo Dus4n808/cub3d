@@ -6,7 +6,7 @@
 /*   By: dufama <dufama@student.42lausanne.ch>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/02 16:29:52 by dufama            #+#    #+#             */
-/*   Updated: 2026/04/14 16:39:29 by dufama           ###   ########.fr       */
+/*   Updated: 2026/04/14 17:07:52 by dufama           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,11 +41,10 @@ static void	check_player(t_game *game)
 		exit_error(game, "Map must have exactly one player");
 }
 
-
-static int check_char(char **map)
+static int	check_char(char **map)
 {
-	int i;
-	int y;
+	int	i;
+	int	y;
 
 	i = 0;
 	while (map[i])
