@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lubaroni <marvin@42lausanne.ch>            +#+  +:+       +#+        */
+/*   By: dufama <dufama@student.42lausanne.ch>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/03 15:59:17 by dufama            #+#    #+#             */
-/*   Updated: 2026/04/13 18:27:43 by lubaroni         ###   ########.fr       */
+/*   Updated: 2026/04/14 13:35:51 by dufama           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,5 +123,4 @@ void	raycasting(t_game *game)
 		draw_cols(game, &ray, x);
 		x++;
 	}
-	print_value(game, &ray);
 }

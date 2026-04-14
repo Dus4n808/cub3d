@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lubaroni <marvin@42lausanne.ch>            +#+  +:+       +#+        */
+/*   By: dufama <dufama@student.42lausanne.ch>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/03 13:59:44 by dufama            #+#    #+#             */
-/*   Updated: 2026/04/13 17:45:59 by lubaroni         ###   ########.fr       */
+/*   Updated: 2026/04/14 14:08:35 by dufama           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,17 +77,4 @@ void	draw_cols(t_game *game, t_ray *ray, int x)
 		put_pixel(&game->img, x, y, draw.colors);
 		y++;
 	}
-}
-
-void	print_value(t_game *game, t_ray *ray)
-{
-	printf("Player pos: x: %f, y: %f\n", game->player.x, game->player.y);
-	printf("Player dir: dir_x: %f, dir_y: %f\n",
-		game->player.dir_x, game->player.dir_y);
-	printf("Player fov: fov_x: %f, fov_y: %f\n",
-		game->player.fov_x, game->player.fov_y);
-	printf("ray camera: camera_x: %f\n", ray->camera_x);
-	printf("Ray dir: dir_x: %f, dir_y: %f\n", ray->dir_x, ray->dir_y);
-	printf("Ray delta: delta_x: %f, delta_y: %f\n",
-		ray->delta_x, ray->delta_y);
 }

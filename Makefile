@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: lubaroni <marvin@42lausanne.ch>            +#+  +:+       +#+         #
+#    By: dufama <dufama@student.42lausanne.ch>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/02/20 17:22:56 by dufama            #+#    #+#              #
-#    Updated: 2026/04/13 17:58:41 by lubaroni         ###   ########.fr        #
+#    Updated: 2026/04/14 14:06:51 by dufama           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -58,8 +58,6 @@ SRCS_FILES = $(SRCS_MAIN) $(SRCS_PARSING) $(SRCS_RENDER) utils.c
 SRCS = $(addprefix $(OBJ_DIR), $(SRCS_FILES))
 OBJS = $(addprefix $(OBJ_DIR), $(SRCS_FILES:.c=.o))
 
-TEST_SRCS = tests/test_main.c \
-			tests/test_parsing.c \
 
 all: $(NAME)
 
@@ -90,22 +88,5 @@ fclean: clean
 	@echo "$(G)Cleanup complete.$(R)"
 
 re: fclean all
-
-test: $(OBJS)
-	@echo "🧪 Running tests..."
-	@$(MAKE) -s -C $(LIBFT_DIR)
-	@$(CC) $(CFLAGS) $(TEST_SRCS) $(LIBFT) -o test_bin
-	@./test_bin
-	@rm -f test_bin
-
-debug_parsing:
-	@$(MAKE) -s -C $(LIBFT_DIR)
-	@$(CC) -g3 -fsanitize=address -I include/ \
-		srcs/main.c \
-		srcs/parsing/read_file.c \
-		srcs/parsing/parse_file.c \
-		srcs/parsing/parse_elements.c \
-		srcs/utils.c \
-		$(LIBFT) -o cub3d_debug
 
 .PHONY: all clean fclean re
