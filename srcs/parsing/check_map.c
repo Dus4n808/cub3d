@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dufama <dufama@student.42lausanne.ch>      +#+  +:+       +#+        */
+/*   By: lubaroni <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/02 16:29:52 by dufama            #+#    #+#             */
-/*   Updated: 2026/04/14 17:07:52 by dufama           ###   ########.fr       */
+/*   Updated: 2026/04/15 11:21:15 by lubaroni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,34 +65,6 @@ static int	check_char(char **map)
 	return (0);
 }
 
-// static void	check_borders(t_game *game)
-// {
-// 	int	x;
-// 	int	len;
-
-// 	x = 0;
-// 	while (x < game->map.rows)
-// 	{
-// 		len = (int)ft_strlen(game->map.grid[x]);
-// 		if (len > 0 && game->map.grid[x][0] != '1'
-// 			&& game->map.grid[x][0] != ' ')
-// 			exit_error(game, "Map is not closed");
-// 		if (len > 0 && game->map.grid[x][len - 1] != '1'
-// 			&& game->map.grid[x][len - 1] != ' ')
-// 			exit_error(game, "Map is not closed");
-// 		x++;
-// 	}
-// 	x = -1;
-// 	while (++x < (int)ft_strlen(game->map.grid[0]))
-// 		if (game->map.grid[0][x] != '1' && game->map.grid[0][x] != ' ')
-// 			exit_error(game, "Map is not closed");
-// 	x = -1;
-// 	while (++x < (int)ft_strlen(game->map.grid[game->map.rows - 1]))
-// 		if (game->map.grid[game->map.rows - 1][x] != '1'
-// 			&& game->map.grid[game->map.rows - 1][x] != ' ')
-// 			exit_error(game, "Map is not closed");
-// }
-
 static void	flood_fill(t_game *game, char **map, int y, int x)
 {
 	if (y < 0 || x < 0 || y >= game->map.rows
@@ -148,6 +120,5 @@ static void	check_map_closed(t_game *game)
 void	map_is_playable(t_game *game)
 {
 	check_player(game);
-	//check_borders(game);
 	check_map_closed(game);
 }
